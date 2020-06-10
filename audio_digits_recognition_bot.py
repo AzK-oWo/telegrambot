@@ -12,7 +12,7 @@ from split_by_vad import sec2samples, get_segments_energy, get_vad_mask, mask_co
 import pickle
 # @audio_digits_dataset_bot
 bot = telebot.TeleBot("1287460275:AAGgBZQPXDYc3fySV8TYa0jpyMajvM9wkik")
-root = os.getcwd() + "/dataset"
+root = os.getcwd() + "/inference"
 filename = "model.pkl"
 with open(filename, 'rb') as f:
 	model_pickled = f.read()
@@ -62,14 +62,14 @@ def vad(wav_file_path, user):
 			min_duration = duration
 	assert max_duration <= 0.8, f"max_duration={max_duration:.3f}"
 	assert min_duration >= 0.1, f"min_duration={min_duration:.3f}"
-	wav_path_after_vad = root + f"/inference/unk_{user}.wav"
+	wav_path_after_vad = root + f"/splitted/unk_{user}.wav"
 	start = segment.start * segment_duration_samples
 	stop = segment.stop * segment_duration_samples
 	write(wav_path_after_vad, sample_rate, audio[start:stop])
 	return wav_path_after_vad
 
 def predict(wav_path_after_vad, user):
-	file_path = root + f"/inference/unk_{user}.wav"
+	file_path = root + f"/splitted/unk_{user}.wav"
 	sample_rate, audio = read(file_path)
 
 	max_duration_sec = 0.8
@@ -102,8 +102,8 @@ def get_voice_messages(message):
 	tele_file = bot.get_file(voice.file_id)
 	ogg_data = bot.download_file(tele_file.file_path)
 	file_name = f"unk_{user}" # need to generate uniq name
-	ogg_path = root + "/ogg_/" + file_name + ".ogg"
-	wav_path = root + "/wav_/" + file_name + ".wav"
+	ogg_path = root + "/ogg/" + file_name + ".ogg"
+	wav_path = root + "/wav/" + file_name + ".wav"
 	save_ogg(ogg_data, ogg_path)
 	convert_ogg_wav(ogg_path, wav_path)
 	wav_path_after_vad = vad(wav_path, user)

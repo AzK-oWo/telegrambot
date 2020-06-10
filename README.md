@@ -2,13 +2,15 @@
 
 ## what it is about
 
-the telegrambots, which one of them can collect voice data of digit and another can predict the digit you called
+The telegrambots, which one of them can collect voice data of digit and another can predict the digit you called
+
+Bot has trainig model which basic on dataset before predict your numbers
 
 ## how to run the dataset bot
 
 	make bot_dataset
 
-then send the voice with 5 digits to 'Listen_to_your_numbers_oWo'
+then send the voice with 5 digits to [bot](https://t.me/Listen_to_your_numbers_oWo_bot)
 
 ## how to split your digits from voice data
 
@@ -23,4 +25,4 @@ then send the voice with 5 digits to 'Listen_to_your_numbers_oWo'
 
 	make bot_recognition
 
-then send the voice with 1 digit to 'Say_digit_get_number_oWo' and get prediction digit
+then send the voice with 1 digit to [bot](https://t.me/Say_digit_get_number_oWo_bot) and get prediction digit
